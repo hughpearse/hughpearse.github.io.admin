@@ -25,6 +25,10 @@ Download Hexo Plugins
 
 `npm install`
 
-Build and deploy
+Build and run locally
 
-`hexo clean; hexo generate; hexo deploy; hexo server`
+`hexo clean; hexo generate; hexo server`
+
+Deploy to remote sites
+
+`hexo deploy`
