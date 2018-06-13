@@ -26,9 +26,10 @@
 		<link rel="icon" href="<%- url_for(theme.favicon) %>?<%- date_xml(Date.now()) %>">
 	<% } %>
 	<% if (theme.fancybox){ %>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+		<link rel="stylesheet" href="/css/jquery.fancybox.min.css" />
 	<% } %>
-		<% if (config.highlight.enable){ %><link href="//fonts.googleapis.com/css?family=Source+Code+Pro|Jura" rel="stylesheet" type="text/css">
+	<% if (config.highlight.enable){ %>
+		<link href="//fonts.googleapis.com/css?family=Source+Code+Pro|Jura" rel="stylesheet" type="text/css">
 	<% }else{ %>
 		<link href="//fonts.googleapis.com/css?family=Jura" rel="stylesheet" type="text/css">
 	<% } %>

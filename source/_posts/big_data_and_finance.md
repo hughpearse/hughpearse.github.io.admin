@@ -14,7 +14,7 @@ There are several document types available through EDGAR such as 10K, 10Q, 8K, 2
 GAAP (Generally Accepted Accounting Principles) is the accounting standard adopted by the SEC. GAAP are a set of rules that encompass the details, complexities, and legalities of business and corporate accounting. U.S. law requires businesses that release financial statements to the public and companies that are publicly traded on stock exchanges and indices to follow GAAP guidelines.
 
 ## Stock Screeners
-Stock screeners are specialized search engines to query EDGAR data to help investors filter stocks based on a search criteria. Screeners contain common pre-written queries for ratios between fields in a companies accounts. It allows investors to cut down the vast number of stocks in the EDGAR data to a small number that meet your specific criteria. [Free screeners are available online][5] but are limited in the types of queries that can be run and are normally limited to the most recent financial period. Screeners that allow investors to build complex queries against historical data usually charge a fee to use.
+Stock screeners are specialized search engines to query financial data to help investors filter stocks based on a search criteria. Screeners contain common pre-written queries for ratios between fields in a companies accounts. Screeners allows investors to cut down the vast number of traded stocks to a small number that meet a specific criteria. [Free screeners are available online][5] but are limited in the types of queries that can be run and are normally limited to the most recent financial period. Screeners that allow investors to build complex queries against historical data usually charge a fee to use.
 
 ![Example stock screener](/images/pasted-0.png)
 
@@ -87,7 +87,8 @@ select name, num.tag, value, form, ddate from sub right join num on
 sub.adsh = num.adsh right join pre on num.adsh = pre.adsh and 
 num.tag = pre.tag and num.version = pre.verison where cik=1081316 and 
 coreg="" and ddate>=20170000 and stmt="BS" and (num.tag="Assets" or
-num.tag="Liabilities");```
+num.tag="Liabilities");
+```
 
 ### Notes:
 1. CIK# 1081316 refers to Berkshire Hathaway Energy Co
