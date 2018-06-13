@@ -27,4 +27,4 @@ Download Hexo Plugins
 
 Build and deploy
 
-`hexo clean; hexo generate; hexo server &; hexo deploy`
+`hexo clean; hexo generate; hexo deploy; hexo server`
