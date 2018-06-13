@@ -54,7 +54,9 @@ Select all the txt files you downloaded previously and upload them.
 ### Step 3: Create a table
 Before importing the files you will need to modify the HDFS folder permissions to import the files to a table. To do this open the command prompt and execute the following command.
 
+``` bash
 hdfs dfs –chmod -R 666 hdfs://localhost:8020/user/cloudera/
+```
 
 You can now progress to import the files to a table. In Hue on the top left press -> hamburger menu -> Browsers -> Tables -> Plus Icon (+)
 
@@ -80,7 +82,12 @@ Repeat the steps above for the other files. Once that is completed you should se
 ## Performing a simple query
 Cloudera provides a SQL based web interface to query the data in Hive using Impala. Hue includes a SQL query interface under Hue -> Hamburger Menu -> Apps -> Editor. In this page you can enter queries to retrieve your data from database tables. A simple query might be: select values from a balance sheet:
 
-```select name, num.tag, value, form, ddate from sub right join num on sub.adsh = num.adsh right join pre on num.adsh = pre.adsh and num.tag = pre.tag and num.version = pre.verison where cik=1081316 and coreg="" and ddate>=20170000 and stmt="BS" and (num.tag="Assets" or num.tag="Liabilities");```
+``` sql
+select name, num.tag, value, form, ddate from sub right join num on 
+sub.adsh = num.adsh right join pre on num.adsh = pre.adsh and 
+num.tag = pre.tag and num.version = pre.verison where cik=1081316 and 
+coreg="" and ddate>=20170000 and stmt="BS" and (num.tag="Assets" or
+num.tag="Liabilities");```
 
 ### Notes:
 1. CIK# 1081316 refers to Berkshire Hathaway Energy Co
