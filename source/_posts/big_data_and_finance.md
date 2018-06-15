@@ -5,6 +5,9 @@ categories: []
 date: 2018-06-11 12:00:00
 ---
 ## Introduction
+Investors are often asking the question: what is my next big investment? To answer this question investors have developed techniques for identifying good stocks. Some investors rely on tips, others rely on hard data. How can an investor use hard data to select a stock?
+
+## EDGAR
 All publicly traded companies in the U.S. are required by the Security and Exchange Commission (SEC) to file registration statements, periodic reports, and other forms electronically through a system called EDGAR. All of this financial information is made accessible to the public [through the EDGAR page][1] on the SEC website.
 
 ## Form Types Overview
