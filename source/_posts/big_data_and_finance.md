@@ -123,6 +123,9 @@ Open a balance sheet and click on one of the fields. If the document is open in 
 
 By subtracting the Namespace Prefix from the Name field, we are left with the value "Assets". This is the Name suffix, which corresponds to the table column num.tag.
 
+## Summary
+It is possible to perform detailed research of historical company performance on a large scale, and also include the price information. This can all be done at home for free with out the need for any special resources that are not already available for free on the internet.
+
 [1]: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001081316&owner=exclude&count=40&hidefilings=0 "EDGAR Online (Berkshire Hathaway)"
 [2]: https://www.sec.gov/dera/data/financial-statement-data-sets.html "Financial Statement Data Sets"
 [3]: http://gethue.com/hadoop-tutorial-create-hive-tables-with-headers-and/ "Create Hive tables with headers and load quoted CSV data"
