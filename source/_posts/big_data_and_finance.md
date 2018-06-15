@@ -2,7 +2,7 @@ title: Big data and finance (Cloudera & SEC Filings)
 author: Hugh Pearse
 tags: []
 categories: []
-date: 2018-06-13 13:09:00
+date: 2018-06-11 12:00:00
 ---
 ## Introduction
 All publicly traded companies in the U.S. are required by the Security and Exchange Commission (SEC) to file registration statements, periodic reports, and other forms electronically through a system called EDGAR. All of this financial information is made accessible to the public [through the EDGAR page][1] on the SEC website.
