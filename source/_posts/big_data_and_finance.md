@@ -36,6 +36,12 @@ The SEC has made all XBRL submissions since 2009 available to [download on their
 ## Stock price data sets
 High-resolution historical stock price data is expensive to acquire and is therefore [rarely shared for free][6]. QuantQuote offers free daily resolution data for the S&P500 on its web site under the Free Data tab. The data accounts for symbol changes, splits, and dividends, and is largely free of the errors found in the Yahoo data. Note, only 500 symbols are available unlike Yahoo which provides all listed symbols.
 
+Websites such as Yahoo Finance allow you to download historical price data for free, but there are several problems. The data is not usually of very high quality as there can be mistakes. Additionally the API's usualy require users to search by ticker symbol.
+
+``` bash 
+curl 'https://query1.finance.yahoo.com/v7/finance/download/KO?period1=1230768000&period2=1529017200&interval=1mo&events=history'
+```
+
 ## Cloudera VM
 Cloudera QuickStart virtual machine (VM) include all the the open source software you need for use right out of the box including tools such as Hadoop, Spark, Hue, Impala and Hive. Hue can be used for [mapping csv files to data tables in Hive][3]. Impala can then be used to [query data in Hive][4]. This can be quickly configured in a few clicks and will allow you to run complex SQL queries against the data. 
 
@@ -123,8 +129,45 @@ Open a balance sheet and click on one of the fields. If the document is open in 
 
 By subtracting the Namespace Prefix from the Name field, we are left with the value "Assets". This is the Name suffix, which corresponds to the table column num.tag.
 
+## Extracting Ticker Symbols
+In the EDGAR dataset there are 2 columns of interest: sub.cik and sub.instance. The sub.instance column contains the filename submitted to the SEC which has a prefix of the ticker symbol. This data can be queried with SQL.
+
+``` sql
+select name, sub.cik, sub.instance from sub 
+right join num on sub.adsh = num.adsh 
+right join pre on num.adsh = pre.adsh and 
+num.tag = pre.tag and num.version = pre.verison where cik=21344;
+```
+
+![Ticker with suffix](/images/pasted-21.png)
+
+The suffix can easily be removed to extract the ticker symbol. This can be done easily in SQL.
+
+``` sql
+select name, sub.cik, split_part(sub.instance, "-", 1) as Ticker 
+from sub 
+right join num on sub.adsh = num.adsh 
+right join pre on num.adsh = pre.adsh and 
+num.tag = pre.tag and 
+num.version = pre.verison where cik=21344;
+```
+
+![Extracted ticker](/images/pasted-22.png)
+
+You can then use this to download the appropriate historical price data from Yahoo or another third party service. There are however some issues with this. This may cause issues if a company has changed it's ticker symbol during it's time as a publicly traded company. 
+
+## Yahoo Price Data
+Yahoo have made their price data freely available to download in CSV format. To map this to the EDGAR data, the least granular time period can be used (monthly), and the time scale can be from 2009-present, as the EDGAR data only goes back as far as 2009. Perform a simple search for [Coca Cola][7].
+
+![Historical Price Data Yahoo Search](/images/pasted-23.png)
+
+Once this is downloaded it will be in CSV format, this can be imported to a KO table and the rows can be joined using their date columns.
+
+![Price Data CSV](/images/pasted-24.png)
+
+
 ## Summary
-It is possible to perform detailed research of historical company performance on a large scale, and also include the price information. This can all be done at home for free with out the need for any special resources that are not already available for free on the internet.
+It is possible to perform detailed research of historical company performance on a large scale, and also include the price information. This can all be done at home for free with out the need for any special resources that are not already available for free on the internet. The process of downloading the price data for all ticker symbols can probably be automated using a bash script, but that will not be covered here.
 
 [1]: https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001081316&owner=exclude&count=40&hidefilings=0 "EDGAR Online (Berkshire Hathaway)"
 [2]: https://www.sec.gov/dera/data/financial-statement-data-sets.html "Financial Statement Data Sets"
@@ -132,3 +175,4 @@ It is possible to perform detailed research of historical company performance on
 [4]: https://www.cloudera.com/documentation/enterprise/latest/topics/hue.html "Impala Query Results in Hue"
 [5]: https://investing.com/stock-screener/ "Stock screener"
 [6]: http://quant.caltech.edu/historical-stock-data.html "Historical stock price data"
+[7]: https://finance.yahoo.com/quote/ko/history/ "Coca Cola Price History"

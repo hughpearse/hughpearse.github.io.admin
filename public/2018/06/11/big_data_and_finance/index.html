@@ -16,16 +16,16 @@
 	<meta property="article:published_time" content="2018-06-11T11:00:00.000Z">
 	<meta property="og:description" content="IntroductionInvestors are often asking the question: what is my next big investment? To answer this question investors have developed techniques for identifying good stocks. Some investors rely on tip">
 	<meta property="og:locale" content="en_US">
-	<meta property="og:image" content="https://hughpearse.github.io/images/pasted-0.png?1529078941680">
-	<meta property="og:updated_time" content="2018-06-15T16:04:15.423Z">
-	<meta property="article:modified_time" content="2018-06-15T16:04:15.423Z">
+	<meta property="og:image" content="https://hughpearse.github.io/images/pasted-0.png?1529087745052">
+	<meta property="og:updated_time" content="2018-06-15T18:35:20.340Z">
+	<meta property="article:modified_time" content="2018-06-15T18:35:20.340Z">
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Big data and finance (Cloudera &amp; SEC Filings) | Hugh Pearse">
 	<meta name="twitter:description" content="IntroductionInvestors are often asking the question: what is my next big investment? To answer this question investors have developed techniques for identifying good stocks. Some investors rely on tip">
-	<meta name="twitter:image" content="https://hughpearse.github.io/images/pasted-0.png?1529078941680">
+	<meta name="twitter:image" content="https://hughpearse.github.io/images/pasted-0.png?1529087745052">
 	
 	
-		<link rel="icon" href="/favicon.ico?2018-06-15T16:09:01.680Z">
+		<link rel="icon" href="/favicon.ico?2018-06-15T18:35:45.052Z">
 	
 	
 		<link rel="stylesheet" href="/css/jquery.fancybox.min.css" />
@@ -33,7 +33,7 @@
 	
 		<!--link href="/css/css?family=Source+Code+Pro|Jura" rel="stylesheet" type="text/css"-->
 	
-	<link rel="stylesheet" href="/css/style.css?2018-06-15T16:09:01.680Z">
+	<link rel="stylesheet" href="/css/style.css?2018-06-15T18:35:45.052Z">
 	<link rel="stylesheet" href="/css/bootstrap.css">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	
@@ -106,7 +106,7 @@
 
 	<div class="article-datetime">
 	<time datetime="2018-06-11T11:00:00.000Z" itemprop="datePublished" content="2018-06-11T11:00:00.000Z">2018-06-11</time>
-	<time datetime="2018-06-11T11:00:00.000Z">12:00:00</time><span itemprop="dateModified" content="2018-06-15T16:04:15.423Z>"</span>
+	<time datetime="2018-06-11T11:00:00.000Z">12:00:00</time><span itemprop="dateModified" content="2018-06-15T18:35:20.340Z>"</span>
 	</div>
 
 	
@@ -152,6 +152,8 @@
 <li>pre.txt - Presentation data set; this provides information about how the tags and numbers were presented in the primary financial statements</li>
 </ul>
 <h2 id="Stock-price-data-sets"><a href="#Stock-price-data-sets" class="headerlink" title="Stock price data sets"></a>Stock price data sets</h2><p>High-resolution historical stock price data is expensive to acquire and is therefore <a href="http://quant.caltech.edu/historical-stock-data.html" title="Historical stock price data" target="_blank" rel="noopener">rarely shared for free</a>. QuantQuote offers free daily resolution data for the S&amp;P500 on its web site under the Free Data tab. The data accounts for symbol changes, splits, and dividends, and is largely free of the errors found in the Yahoo data. Note, only 500 symbols are available unlike Yahoo which provides all listed symbols.</p>
+<p>Websites such as Yahoo Finance allow you to download historical price data for free, but there are several problems. The data is not usually of very high quality as there can be mistakes. Additionally the API’s usualy require users to search by ticker symbol.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'https://query1.finance.yahoo.com/v7/finance/download/KO?period1=1230768000&amp;period2=1529017200&amp;interval=1mo&amp;events=history'</span></span><br></pre></td></tr></table></figure>
 <h2 id="Cloudera-VM"><a href="#Cloudera-VM" class="headerlink" title="Cloudera VM"></a>Cloudera VM</h2><p>Cloudera QuickStart virtual machine (VM) include all the the open source software you need for use right out of the box including tools such as Hadoop, Spark, Hue, Impala and Hive. Hue can be used for <a href="http://gethue.com/hadoop-tutorial-create-hive-tables-with-headers-and/" title="Create Hive tables with headers and load quoted CSV data" target="_blank" rel="noopener">mapping csv files to data tables in Hive</a>. Impala can then be used to <a href="https://www.cloudera.com/documentation/enterprise/latest/topics/hue.html" title="Impala Query Results in Hue" target="_blank" rel="noopener">query data in Hive</a>. This can be quickly configured in a few clicks and will allow you to run complex SQL queries against the data. </p>
 <h3 id="Step-1-Download-the-data"><a href="#Step-1-Download-the-data" class="headerlink" title="Step 1: Download the data"></a>Step 1: Download the data</h3><p>Open Cloudera VM<br>Open firefox<br>Download a financial data set zip file from the SEC website</p>
 <p><img src="/images/pasted-1.png" alt="SEC XBRL data"></p>
@@ -192,7 +194,18 @@
 <li>Period Type: instant</li>
 </ul>
 <p>By subtracting the Namespace Prefix from the Name field, we are left with the value “Assets”. This is the Name suffix, which corresponds to the table column num.tag.</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>It is possible to perform detailed research of historical company performance on a large scale, and also include the price information. This can all be done at home for free with out the need for any special resources that are not already available for free on the internet.</p>
+<h2 id="Extracting-Ticker-Symbols"><a href="#Extracting-Ticker-Symbols" class="headerlink" title="Extracting Ticker Symbols"></a>Extracting Ticker Symbols</h2><p>In the EDGAR dataset there are 2 columns of interest: sub.cik and sub.instance. The sub.instance column contains the filename submitted to the SEC which has a prefix of the ticker symbol. This data can be queried with SQL.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>, sub.cik, sub.instance <span class="keyword">from</span> sub </span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> <span class="keyword">num</span> <span class="keyword">on</span> sub.adsh = num.adsh </span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> pre <span class="keyword">on</span> num.adsh = pre.adsh <span class="keyword">and</span> </span><br><span class="line">num.tag = pre.tag <span class="keyword">and</span> num.version = pre.verison <span class="keyword">where</span> cik=<span class="number">21344</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-21.png" alt="Ticker with suffix"></p>
+<p>The suffix can easily be removed to extract the ticker symbol. This can be done easily in SQL.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">name</span>, sub.cik, split_part(sub.instance, <span class="string">"-"</span>, <span class="number">1</span>) <span class="keyword">as</span> Ticker </span><br><span class="line"><span class="keyword">from</span> sub </span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> <span class="keyword">num</span> <span class="keyword">on</span> sub.adsh = num.adsh </span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> pre <span class="keyword">on</span> num.adsh = pre.adsh <span class="keyword">and</span> </span><br><span class="line">num.tag = pre.tag <span class="keyword">and</span> </span><br><span class="line">num.version = pre.verison <span class="keyword">where</span> cik=<span class="number">21344</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-22.png" alt="Extracted ticker"></p>
+<p>You can then use this to download the appropriate historical price data from Yahoo or another third party service. There are however some issues with this. This may cause issues if a company has changed it’s ticker symbol during it’s time as a publicly traded company. </p>
+<h2 id="Yahoo-Price-Data"><a href="#Yahoo-Price-Data" class="headerlink" title="Yahoo Price Data"></a>Yahoo Price Data</h2><p>Yahoo have made their price data freely available to download in CSV format. To map this to the EDGAR data, the least granular time period can be used (monthly), and the time scale can be from 2009-present, as the EDGAR data only goes back as far as 2009. Perform a simple search for <a href="https://finance.yahoo.com/quote/ko/history/" title="Coca Cola Price History" target="_blank" rel="noopener">Coca Cola</a>.</p>
+<p><img src="/images/pasted-23.png" alt="Historical Price Data Yahoo Search"></p>
+<p>Once this is downloaded it will be in CSV format, this can be imported to a KO table and the rows can be joined using their date columns.</p>
+<p><img src="/images/pasted-24.png" alt="Price Data CSV"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>It is possible to perform detailed research of historical company performance on a large scale, and also include the price information. This can all be done at home for free with out the need for any special resources that are not already available for free on the internet. The process of downloading the price data for all ticker symbols can probably be automated using a bash script, but that will not be covered here.</p>
 
 	
 	</div>
