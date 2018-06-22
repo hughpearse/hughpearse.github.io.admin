@@ -39,7 +39,7 @@ High-resolution historical stock price data is expensive to acquire and is there
 Websites such as Yahoo Finance allow you to download historical price data for free, but there are several problems. The data is not usually of very high quality as there can be mistakes. Additionally the API's usualy require users to search by ticker symbol.
 
 ``` bash 
-curl 'https://query1.finance.yahoo.com/v7/finance/download/KO?period1=1230768000&period2=1529017200&interval=1mo&events=history'
+$ curl 'https://query1.finance.yahoo.com/v7/finance/download/KO?period1=1230768000&period2=1529017200&interval=1mo&events=history'
 ```
 
 ## Cloudera VM
@@ -64,7 +64,7 @@ Select all the txt files you downloaded previously and upload them.
 Before importing the files you will need to modify the HDFS folder permissions to import the files to a table. To do this open the command prompt and execute the following command.
 
 ``` bash
-hdfs dfs –chmod -R 666 hdfs://localhost:8020/user/cloudera/
+$ hdfs dfs –chmod -R 666 hdfs://localhost:8020/user/cloudera/
 ```
 
 You can now progress to import the files to a table. In Hue on the top left press -> hamburger menu -> Browsers -> Tables -> Plus Icon (+)
@@ -87,6 +87,44 @@ Then the table will be created and will appear on the left pane
 Repeat the steps above for the other files. Once that is completed you should see 4 tables in the default table schema: num, sub, tag and pre.
 
 ![All tables created](/images/pasted-7.png)
+
+You should now be able to see these tables in the impala shell. Open the terminal and run:
+``` bash
+$ impala-shell
+```
+![impala-shell](/images/pasted-25.png)
+
+To list the databases in impala run the show databases command:
+``` sql
+> show databases;
+```
+![show databases](/images/pasted-26.png)
+
+To list the tables in the default database run the show tables command:
+``` sql
+> show tables in default;
+```
+![show tables command](/images/pasted-27.png)
+
+To choose a database as a context for subsequent sql commands, issue the use database command:
+``` sql
+> use default;
+```
+![use database command](/images/pasted-28.png)
+
+Tables are the primary containers for data in Impala. Logically, each table has a structure based on the definition of its columns, partitions, and other properties.
+
+Physically, each table that uses HDFS storage is associated with a directory in HDFS. The table data consists of all the data files underneath that directory:
+- Internal tables are managed by Impala, and use directories inside the designated Impala work area.
+- External tables use arbitrary HDFS directories, where the data files are typically shared between different Hadoop components.
+- Large-scale data is usually handled by partitioned tables, where the data files are divided among different HDFS subdirectories.
+
+To query what type table we have created in impala, run the describe formatted command:
+``` sql
+> describe formatted tag;
+```
+![describe formatted command](/images/pasted-29.png)
+The Table Type field displays MANAGED_TABLE for internal tables and EXTERNAL_TABLE for external tables. 
 
 ## Performing a simple query
 Cloudera provides a SQL based web interface to query the data in Hive using Impala. Hue includes a SQL query interface under Hue -> Hamburger Menu -> Apps -> Editor. In this page you can enter queries to retrieve your data from database tables. A simple query might be: select values from a balance sheet:
