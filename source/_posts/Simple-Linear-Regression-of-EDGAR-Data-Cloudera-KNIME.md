@@ -5,7 +5,7 @@ categories: []
 date: 2018-06-24 11:50:00
 ---
 ## Equation of a Line
-A line can be used to extrapolate predictions into the future. If you know two points that a line passes through you can define the equation of a line. The formula for equation of a line is defined as
+A line can be used to extrapolate predictions into the future. If you know two points that a line passes through you can define the equation of a line. The equation of a line is defined as
 
 ![line equation](/images/pasted-30.png)
 - y is the dependent variable or result
@@ -18,7 +18,7 @@ Sometimes a data set will have more than 2 points, and the points may be roughly
 
 ![scatterplot](/images/pasted-31.png)
 
-When there are several points in a dataset a modified version of the standard line equation formula can be used, where the slope and intercept are estimated using a calculation. The formula for simple linear regression is as follows:
+When there are several points in a dataset a modified version of the standard line equation can be used, where the slope and intercept are estimated using a calculation. The equation for simple linear regression is as follows:
 
 ![linear regression equation](/images/pasted-32.png)
 - y is the dependent variable or predicted result
@@ -26,18 +26,18 @@ When there are several points in a dataset a modified version of the standard li
 - x is the independent variable or control
 - α is the estimated intercept where the line crosses the y axis
 
-The value for the slope can be estimated using the following formula:
+The value for the slope can be estimated using the following equation:
 
-![slope formula](/images/pasted-33.png)
+![slope equation](/images/pasted-33.png)
 - x̄ is the mean of x
 - ȳ is the mean of y
 - i is the instance of data
 - x_i is the independent variable for a given instance of data
 - y_i is the dependent variable for a given instance of data
 
-The value for the intercept can be estimated using the following formula:
+The value for the intercept can be estimated using the following equation:
 
-![intercept formula](/images/pasted-34.png)
+![intercept equation](/images/pasted-34.png)
 
 ## Performance Considerations
 Performing a simple linear regression on data stored in a CSV file will usually involve typical operations such as reading the file from disk, copying it across the network, storing it temporarily in an object in memory, performing a few calculations and displaying a result. The slowest parts of this task are usually reading the file from the hard drive and transferring it across the network.
