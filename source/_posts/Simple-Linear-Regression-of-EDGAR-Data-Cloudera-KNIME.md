@@ -47,11 +47,12 @@ Most database management systems come with some primitive functions for performi
 
 It is possible to [calculate Linear Regression Coefficients in SQL][0] by using window functions:
 ``` sql
-select slope, y_bar_max - x_bar_max * slope as intercept
+select slope, 
+y_bar - x_bar * slope as intercept
 from(
     select sum((x - x_bar) * (y - y_bar)) / sum((x - x_bar) * (x - x_bar)) as slope,
-    max(x_bar) as x_bar_max,
-    max(y_bar) as y_bar_max
+    avg(x_bar) as x_bar,
+    avg(y_bar) as y_bar
     from(
             select
             x as x, avg(x) over () as x_bar,
