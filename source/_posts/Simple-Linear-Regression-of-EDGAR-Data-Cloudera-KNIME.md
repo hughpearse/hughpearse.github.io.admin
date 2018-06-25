@@ -51,8 +51,8 @@ select slope,
 y_bar - x_bar * slope as intercept
 from(
     select sum((x - x_bar) * (y - y_bar)) / sum((x - x_bar) * (x - x_bar)) as slope,
-    avg(x_bar) as x_bar,
-    avg(y_bar) as y_bar
+    max(x_bar) as x_bar,
+    max(y_bar) as y_bar
     from(
             select
             x as x, avg(x) over () as x_bar,
@@ -70,6 +70,7 @@ from(
 ```
 
 ![linear regression impala sql](/images/pasted-35.png)
+
 
 ## Impala functions and procedures
 Apache Impala is an open source parallel processing SQL query engine for data stored in a computer cluster running Apache Hadoop. Stored procedures as database objects are not supported by Impala yet. [Impala does however support][2] User Defined Functions (UDFs) written in C++, and Hive UDFs written in Java.
