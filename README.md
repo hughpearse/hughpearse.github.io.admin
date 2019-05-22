@@ -15,7 +15,7 @@ Install Hexo with Node.Js Package Manager (Npm)
 
 Initialize Hexo project
 
-`git clone https://github.com/hughpearse/hughpearse.github.io.admin.git
+`git clone https://github.com/hughpearse/hughpearse.github.io.admin.git`
 
 Navigate to folder
 
@@ -29,6 +29,12 @@ Build and run locally
 
 `hexo clean; hexo generate; hexo server`
 
-Deploy to remote sites
+Then in your browser you can visit
+
+* http://localhost:4000/
+* http://localhost:4000/admin/
+
+Deploy/push to remote sites
 
 `hexo deploy`
+
